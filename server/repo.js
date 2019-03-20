@@ -48,6 +48,23 @@ function findtask(callback)
    })
    
 }
+function finduserspecific(id,callback){
+    console.log(id)
+    
+    connect((err,client)=>{const db = client.db(dbName);
+        const collection = db.collection('user');
+       
+       
+        // Find some documents
+        collection.find({"_id": new ObjectId(id)}).toArray(function(err, docs) {
+          assert.equal(err, null);
+          console.log("Found the following user");
+          client.close();
+         callback(null,docs);
+        });
+       })
+       
+    }
 function finduser(callback)
 {
 	connect((err,client)=>
@@ -444,6 +461,7 @@ function endproject(body,callback)
 
 module.exports={
 		findtask,findproject,finduser,
+		finduserspecific,
 		inserttask,insertparent,insertstate,insertproject,insertuser,insertproject2,
 		deletetask,deleteemployee,deleteproject,
 		updatetask,updateuser,updateproject,

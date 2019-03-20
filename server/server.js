@@ -26,7 +26,14 @@ app.get('/user', function (req, res)
         res.json(data);
     });
 })
-
+app.get('/user/:user_id', function (req, res) {
+    var id=req.params.user_id
+    console.log(id)
+    repo.finduserspecific(id,(err,data)=>{
+        console.log(data)
+        res.json(data);
+    });
+})
 app.get('/project', function (req, res)
 {
     repo.findproject((err,data)=>
@@ -70,6 +77,7 @@ app.post('/projects', function (req, res)
 {
     var content=req.body
     console.log(content)
+	console.log(content.startdate)
 	
 	var pars={
 		"projectname":content.projectname,
